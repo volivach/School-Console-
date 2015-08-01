@@ -82,7 +82,7 @@ namespace StudentsGroup
             }
 
             SerializeToXML();
-            WriteDataToDatabase();
+            //WriteDataToDatabase();
 
         }
         public void ReadData()
@@ -107,63 +107,63 @@ namespace StudentsGroup
             }
 
             DeserializeFromXML();
-            ReadDataFromDatabase();
+            //ReadDataFromDatabase();
         }
 
-        private void ReadDataFromDatabase()
-        {
-            using (AuthDataContainer context = new AuthDataContainer())
-            {
-                var query =
-                    from authDataEntity in context.AuthDataEntities
-                    select new 
-                    {
-                        Login = authDataEntity.Login,
-                        Password = authDataEntity.Password,
-                        Role = authDataEntity.Role.Role
-                    };
+        //private void ReadDataFromDatabase()
+        //{
+        //    using (AuthDataContainer context = new AuthDataContainer())
+        //    {
+        //        var query =
+        //            from authDataEntity in context.AuthDataEntities
+        //            select new 
+        //            {
+        //                Login = authDataEntity.Login,
+        //                Password = authDataEntity.Password,
+        //                Role = authDataEntity.Role.Role
+        //            };
 
-                if(query.Count() > 0)
-                    _authData = query.ToDictionary(i => i.Login, i => new AuthData() { Login = i.Login, Password = i.Password, Role = i.Role});
-            }
-        }
+        //        if(query.Count() > 0)
+        //            _authData = query.ToDictionary(i => i.Login, i => new AuthData() { Login = i.Login, Password = i.Password, Role = i.Role});
+        //    }
+        //}
 
-        private void WriteDataToDatabase()
-        {
-            using (AuthDataContainer context = new AuthDataContainer())
-            {
+        //private void WriteDataToDatabase()
+        //{
+        //    using (AuthDataContainer context = new AuthDataContainer())
+        //    {
 
-                context.Roles.Load();
-                foreach (var it in _authData)
-                {
-                    AuthDataEntity authData = new AuthDataEntity()
-                    {
-                        Login = it.Value.Login,
-                        Password = it.Value.Password,
+        //        context.Roles.Load();
+        //        foreach (var it in _authData)
+        //        {
+        //            AuthDataEntity authData = new AuthDataEntity()
+        //            {
+        //                Login = it.Value.Login,
+        //                Password = it.Value.Password,
 
-                    };
+        //            };
 
                     
-                    var roles = context.Roles.Local.ToList();
-                    var currentRole = roles.FirstOrDefault(i => it.Value.Role == i.Role);
+        //            var roles = context.Roles.Local.ToList();
+        //            var currentRole = roles.FirstOrDefault(i => it.Value.Role == i.Role);
 
-                    if (currentRole == null)
-                    {
-                        currentRole = roles.LastOrDefault();
-                        int roleId = currentRole != null ? currentRole.Id + 1 : 1;
-                        context.Roles.Add(new Roles() { Role = it.Value.Role, Id = roleId});
-                        authData.RolesId = roleId;
-                    }
-                    else
-                        authData.RolesId = currentRole.Id;
+        //            if (currentRole == null)
+        //            {
+        //                currentRole = roles.LastOrDefault();
+        //                int roleId = currentRole != null ? currentRole.Id + 1 : 1;
+        //                context.Roles.Add(new Roles() { Role = it.Value.Role, Id = roleId});
+        //                authData.RolesId = roleId;
+        //            }
+        //            else
+        //                authData.RolesId = currentRole.Id;
 
 
 
-                    context.AuthDataEntities.Add(authData);
-                }
-                context.SaveChanges();
-            }
-        }
+        //            context.AuthDataEntities.Add(authData);
+        //        }
+        //        context.SaveChanges();
+        //    }
+        //}
 
         private void SerializeToXML()
         {

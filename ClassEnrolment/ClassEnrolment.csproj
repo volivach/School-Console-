@@ -79,63 +79,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthData.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuthData.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AuthData.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuthData.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="AuthDataEntity.cs">
-      <DependentUpon>AuthData.tt</DependentUpon>
-    </Compile>
     <Compile Include="AuthentificationManager.cs" />
-    <Compile Include="Course.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Department.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Exceptions\ClassFullException.cs" />
     <Compile Include="Group\Teacher.cs" />
     <Compile Include="Group\User.cs" />
-    <Compile Include="OfficeAssignment.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OnlineCourse.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OnsiteCourse.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Roles.cs">
-      <DependentUpon>AuthData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SchoolModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SchoolModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="SerializeToXML.cs" />
-    <Compile Include="StudentGrade.cs">
-      <DependentUpon>SchoolModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\AuthRequestInfo.cs" />
     <Compile Include="Views\ConsoleView.cs" />
     <Compile Include="Group\Group.cs" />
@@ -151,21 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="AuthData.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AuthData.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="AuthData.edmx.diagram">
-      <DependentUpon>AuthData.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="SchoolModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SchoolModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="SchoolModel.edmx.diagram">
-      <DependentUpon>SchoolModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.0\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.Common.dll" />
@@ -174,29 +108,6 @@
     <Analyzer Include="..\packages\System.Runtime.Analyzers.1.0.0\analyzers\dotnet\cs\System.Runtime.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\System.Runtime.InteropServices.Analyzers.1.0.0\analyzers\dotnet\cs\System.Runtime.InteropServices.Analyzers.dll" />
     <Analyzer Include="..\packages\System.Runtime.InteropServices.Analyzers.1.0.0\analyzers\dotnet\cs\System.Runtime.InteropServices.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AuthData.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AuthData.Context.cs</LastGenOutput>
-      <DependentUpon>AuthData.edmx</DependentUpon>
-    </Content>
-    <Content Include="AuthData.edmx.sql" />
-    <Content Include="AuthData.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AuthData1.cs</LastGenOutput>
-      <DependentUpon>AuthData.edmx</DependentUpon>
-    </Content>
-    <Content Include="SchoolModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolModel.edmx</DependentUpon>
-      <LastGenOutput>SchoolModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="SchoolModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SchoolModel.edmx</DependentUpon>
-      <LastGenOutput>SchoolModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
