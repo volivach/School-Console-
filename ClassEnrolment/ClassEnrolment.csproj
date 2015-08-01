@@ -81,9 +81,36 @@
   <ItemGroup>
     <Compile Include="AuthentificationManager.cs" />
     <Compile Include="Exceptions\ClassFullException.cs" />
+    <Compile Include="Exceptions\GroupNotFoundException.cs" />
+    <Compile Include="Groups.cs">
+      <DependentUpon>SchoolEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Group\Administrator.cs" />
+    <Compile Include="Group\Guest.cs" />
     <Compile Include="Group\Teacher.cs" />
     <Compile Include="Group\User.cs" />
-    <Compile Include="SerializeToXML.cs" />
+    <Compile Include="Roles.cs">
+      <DependentUpon>SchoolEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolController.cs" />
+    <Compile Include="SchoolEntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolEntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolEntityModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolEntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolEntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>SchoolEntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\AuthRequestInfo.cs" />
     <Compile Include="Views\ConsoleView.cs" />
     <Compile Include="Group\Group.cs" />
@@ -100,6 +127,13 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="SchoolEntityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SchoolEntityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SchoolEntityModel.edmx.diagram">
+      <DependentUpon>SchoolEntityModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.AnalyzerPowerPack.1.0.0\analyzers\dotnet\cs\Microsoft.AnalyzerPowerPack.Common.dll" />
@@ -111,6 +145,19 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SchoolEntityModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SchoolEntityModel.Context.cs</LastGenOutput>
+      <DependentUpon>SchoolEntityModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="SchoolEntityModel.edmx.sql" />
+    <Content Include="SchoolEntityModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SchoolEntityModel.cs</LastGenOutput>
+      <DependentUpon>SchoolEntityModel.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

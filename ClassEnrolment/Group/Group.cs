@@ -33,6 +33,15 @@ namespace StudentsGroup
             _students.AddRange(students);
         }
 
+        public GroupID Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
+
+
         public void AddStudent(Student st)
         {
             if (_students.Count == MaxCountOfStudents)

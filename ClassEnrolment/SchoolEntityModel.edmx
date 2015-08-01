@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SchoolEntityModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SchoolEntityModelStoreContainer">
+    <EntitySet Name="Users" EntityType="SchoolEntityModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="SchoolEntityModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Groups" EntityType="SchoolEntityModel.Store.Groups" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsersRoles" Association="SchoolEntityModel.Store.UsersRoles">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="GroupsUsers" Association="SchoolEntityModel.Store.GroupsUsers">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SecondName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="imageUri" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Age" Type="smallint" Nullable="false" />
+    <Property Name="RolesId" Type="int" Nullable="false" />
+    <Property Name="GroupsId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersRoles">
+    <End Role="Users" Type="SchoolEntityModel.Store.Users" Multiplicity="*" />
+    <End Role="Roles" Type="SchoolEntityModel.Store.Roles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RolesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupsUsers">
+    <End Role="Users" Type="SchoolEntityModel.Store.Users" Multiplicity="*" />
+    <End Role="Groups" Type="SchoolEntityModel.Store.Groups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="GroupsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SchoolEntityModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="SchoolEntityModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="SchoolEntityModel.Users" />
+          <EntitySet Name="Roles" EntityType="SchoolEntityModel.Roles" />
+          <AssociationSet Name="UsersRoles" Association="SchoolEntityModel.UsersRoles">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <EntitySet Name="Groups" EntityType="SchoolEntityModel.Groups" />
+          <AssociationSet Name="GroupsUsers" Association="SchoolEntityModel.GroupsUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="SecondName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="imageUri" Type="String" Nullable="true" />
+          <Property Name="Age" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="SchoolEntityModel.UsersRoles" FromRole="Users" ToRole="Roles" />
+          <Property Name="RolesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="SchoolEntityModel.GroupsUsers" FromRole="Users" ToRole="Groups" />
+          <Property Name="GroupsId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="SchoolEntityModel.UsersRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <Association Name="UsersRoles">
+          <End Type="SchoolEntityModel.Users" Role="Users" Multiplicity="*" />
+          <End Type="SchoolEntityModel.Roles" Role="Roles" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RolesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="GroupsUsers">
+          <End Type="SchoolEntityModel.Users" Role="Users" Multiplicity="*" />
+          <End Type="SchoolEntityModel.Groups" Role="Groups" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="GroupsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchoolEntityModelStoreContainer" CdmEntityContainer="SchoolEntityModelContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(SchoolEntityModel.Users)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="imageUri" ColumnName="imageUri" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+          <ScalarProperty Name="GroupsId" ColumnName="GroupsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(SchoolEntityModel.Roles)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="IsTypeOf(SchoolEntityModel.Groups)">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -14,6 +14,8 @@ namespace StudentsGroup
             Group studentGroup = new Group("C#-15-01");
             AuthentificationManager authManager = new AuthentificationManager();
             authManager.ReadData();
+            SchoolController.Instance.ReadDataFromDatabase();
+
             IView view = new ConsoleView();
             view.AuthentificationRequest += authManager.OnAuthRequest;
             view.Authentificate();
@@ -21,26 +23,25 @@ namespace StudentsGroup
 
             view.AddStudentEvent += (stInfo) =>
             {
-                Student st = new Student(stInfo.FirstName, stInfo.LastName, stInfo.SecondName, "", stInfo.Age);
-                studentGroup.AddStudent(st);
-                authManager.RegisterNewUser(st, "Student");
-
+                SchoolController.Instance.AddStudent(stInfo, new GroupID("C#-15-01"));
                 authManager.SafeData();
+                //! TODO: Oprimeze that
+                SchoolController.Instance.WriteDataToDatabase(); 
             };
 
             view.AddTeacherEvent += (stInfo) =>
             {
-                Teacher st = new Teacher(stInfo.FirstName, stInfo.LastName, stInfo.SecondName, "", stInfo.Age);
-                authManager.RegisterNewUser(st, "Teacher");
-
+                SchoolController.Instance.AddTeacher(stInfo);
                 authManager.SafeData();
+#warning TODO[Andrey, 08.1.2015] - this is not very good idea write to database after each add student operation
+                SchoolController.Instance.WriteDataToDatabase();
             };
 
             view.ViewStudentEvent += (number) =>
             {
                 try
                 {
-                    Student st = studentGroup[number - 1];
+                    Student st = SchoolController.Instance.Groups.First()[number - 1];
                     UserInfo stInfo = new UserInfo() { Age = st.Age };
                     view.ViewStudent(stInfo);
                 }
